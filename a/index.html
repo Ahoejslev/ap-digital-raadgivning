@@ -650,6 +650,32 @@ p.lead{color:#7E7E7E}
 .orow2.off b{color:var(--body)}
 .ovl .src{margin:0;font:400 12px/16px var(--f-body);color:var(--body)}
 .top-step{min-height:64px;padding-top:8px;padding-bottom:8px}
+/* v30 */
+.cta{padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -1px 12px rgba(0,0,0,.10),0 -1px 2px rgba(0,0,0,.15)}
+.cta .btn{height:40px;min-height:40px}
+.cta .backbtn{width:40px;height:40px}
+.btn.primary{box-shadow:0 1px 0 rgba(0,0,0,.9)}
+.btn.primary[disabled]{box-shadow:none}
+.top-brand{padding:10px 24px 12px}
+.iconbtn svg{width:12px;height:12px}
+.calm{max-width:333px;padding-right:8px}
+.fcard .hd{background:#F6F3EE}
+.arow .sub div{display:flex;justify-content:space-between;gap:8px}
+.arow .sub div span:last-child{text-align:right}
+.arow.off{padding-bottom:16px}
+.sumbox{margin:-2px 0 0}
+.nlist li:nth-child(3) p{min-height:66px}
+.tl li{margin:0}
+.ktile{background:#fff;border-color:#D9DEDE;box-shadow:0 4px 16px rgba(26,26,26,.06)}
+.ktile .l{margin-bottom:2px}
+.box.sam p.small{max-width:255px}
+.drawer{border-radius:32px 32px 0 0}
+.sheet.done.d1 .april{border-radius:8px}
+.sheet.done.tak .chk{width:294px;height:209px;object-fit:contain}
+.steps{margin-left:-2px;margin-right:1px}
+.step{gap:8px}
+.steps .step:nth-of-type(2) .ic{width:24px;height:28px}
+.steps .step:nth-of-type(2) .ic svg{width:24px;height:24px}
 </style>
 
 <div id="stage">
@@ -689,7 +715,7 @@ const CHAPTERS=[['mail','mobil','samtykke','partner','pensionsinfo'],['overblik'
 const PROG={}; CHAPTERS.forEach((ids,c)=>ids.forEach((id,i)=>PROG[id]=+(c*25+25*(i+1)/ids.length).toFixed(2)));
 let barW=0, rendering=null;
 const S0=()=>({email:'',phone:'',consent:false,partner:null,more:false,selv:false,pick:{danica:true,velliv:true}});
-const ANB=[{k:'danica',n:'Danica',a:'1.204.000 kr.',v:1204000,f:228,sub:[['Kan udbetales:','5 år før pensionsalder'],['Forsikring','5 år før pensionsalder']]},{k:'velliv',n:'Velliv',a:'509.000 kr.',v:509000,f:69}];
+const ANB=[{k:'danica',n:'Danica',a:'1.204.000 kr.',v:1204000,f:228,sub:[['Kan udbetales:','5 år før pensionsalder'],['Forsikring:','Dækning ved død 2.500.000 kr.']]},{k:'velliv',n:'Velliv',a:'509.000 kr.',v:509000,f:69}];
 const KR=n=>n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' kr.';
 let st=S0(); const hist=[]; let cur=null;
 
@@ -754,7 +780,7 @@ const SCREENS={
 
  overblik:{render:()=>`${topStep(2)}<div class="content">${head('Her er et samlet overblik over dine pensioner','Her kan du se, hvor du har pension i dag, og hvilke opsparinger der kan overføres til AP Pension.')}<div class="ovl"><h3>Dine opsparinger</h3><div><div class="orow2"><span>Danica</span><b>1.204.000 kr.</b></div><div class="orow2"><span>Velliv</span><b>509.000 kr.</b></div><div class="orow2 off"><span>Sampension</span><b>509.000 kr.</b></div></div><p class="src">Oplysningerne er hentet fra PensionsInfo</p></div></div>${cta('Næste')}`, next:'samle'},
  samle:{render:()=>`${topStep(2)}<div class="content">${head('Du kan med fordel samle flere af dine opsparinger hos AP Pension')}<ul class="flist"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg><span>Få velkomstbonus</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg><span>Betal færre gebyrer</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg><span>Tag dine rettigheder med dig</span></li></ul><div class="bcards" id="cards"><div class="bcard"><span class="bt"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg></span><div><b>Få velkomstbonus</b><p>Vi indhenter de oplysninger, vi har brug for, så vores rådgivning tager udgangspunkt i dig og din situation.</p></div></div><div class="bcard"><span class="bt"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg></span><div><b>Betal færre gebyrer</b><p>Vi undersøger din pension og ser på, hvilke muligheder der passer bedst til dig.</p></div></div><div class="bcard"><span class="bt"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg></span><div><b>Tag dine rettigheder med dig</b><p>Vi giver dig konkrete råd til din pension, så du ved, hvad vi anbefaler og hvorfor.</p></div></div></div><div class="dots bdots" id="dots"><i class="on"></i><i></i><i></i></div></div>${cta('Ja tak')}`, next:'anbefaling'},
- anbefaling:{render:()=>{const m=st.selv; return `${topStep(2)}<div class="content">${head('Vi anbefaler, at du samler disse pensionsopsparinger','Ved at samle dine pensionsopsparinger kan du få mere ud af din pension. Du får et bedre overblik, undgår gebyrer flere steder og kan få relevante rettigheder med dig.')}<div class="anb${m?' sel':''}"><h3>Pensionsopsparinger,<br>vi anbefaler, at du samler</h3><div class="fbar" aria-hidden="true"><i style="flex:251"></i><i class="r" style="flex:74"></i></div><div class="leg"><span>Kan samles hos AP Pension</span><span>Kan ikke flyttes</span></div>${ANB.map(r=>`<div class="arow"><div class="ac"><div class="l"><i></i><span>${r.n}</span><b>${r.a}</b></div>${r.sub?`<div class="sub">${r.sub.map(s=>`<div><span>${m&&s[0]==='Forsikring'?'Forsikring:':s[0]}</span><span>${s[1]}</span></div>`).join('')}</div>`:''}</div>${m?`<button class="cbx" role="checkbox" aria-checked="${!!st.pick[r.k]}" aria-label="Samle ${r.n}" data-act="pick:${r.k}"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg></button>`:''}</div>`).join('')}<div class="arow off"><div class="ac"><div class="l"><i></i><span>Sampension</span><b>509.000 kr.</b></div><small>Kan ikke flyttes</small></div><button class="link" data-act="drawer:hvorfor">Læs hvorfor ${I.chev}</button></div><p class="src">Oplysningerne er hentet fra PensionsInfo</p></div><button class="btn outline vs" data-act="${m?'selv-ok':'drawer:selv'}">${m?'Accepter ændringer':'Vælg selv'}</button></div>${cta('Saml mine pensioner').replace('data-act="next"',ANB.some(r=>st.pick[r.k])?'data-act="next"':'data-act="next" disabled')}`}, next:'valgt'},
+ anbefaling:{render:()=>{const m=st.selv; return `${topStep(2)}<div class="content">${head('Vi anbefaler, at du samler disse pensionsopsparinger','Ved at samle dine pensionsopsparinger kan du få mere ud af din pension. Du får et bedre overblik, undgår gebyrer flere steder og kan få relevante rettigheder med dig.')}<div class="anb${m?' sel':''}"><h3>Pensionsopsparinger,<br>vi anbefaler, at du samler</h3><div class="fbar" aria-hidden="true"><i style="flex:251"></i><i class="r" style="flex:74"></i></div><div class="leg"><span>Kan samles hos AP Pension</span><span>Kan ikke flyttes</span></div>${ANB.map(r=>`<div class="arow"><div class="ac"><div class="l"><i></i><span>${r.n}</span><b>${r.a}</b></div>${r.sub?`<div class="sub">${r.sub.map(s=>`<div><span>${s[0]}</span><span>${s[1]}</span></div>`).join('')}</div>`:''}</div>${m?`<button class="cbx" role="checkbox" aria-checked="${!!st.pick[r.k]}" aria-label="Samle ${r.n}" data-act="pick:${r.k}"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z" fill="currentColor"/></svg></button>`:''}</div>`).join('')}<div class="arow off"><div class="ac"><div class="l"><i></i><span>Sampension</span><b>509.000 kr.</b></div><small>Kan ikke flyttes</small></div><button class="link" data-act="drawer:hvorfor">Læs hvorfor ${I.chev}</button></div><p class="src">Oplysningerne er hentet fra PensionsInfo</p></div><button class="btn outline vs" data-act="${m?'selv-ok':'drawer:selv'}">${m?'Accepter ændringer':'Vælg selv'}</button></div>${cta('Saml mine pensioner').replace('data-act="next"',ANB.some(r=>st.pick[r.k])?'data-act="next"':'data-act="next" disabled')}`}, next:'valgt'},
  valgt:{render:()=>{const ps=ANB.filter(r=>st.pick[r.k]); const n=ps.length; return `${topStep(2)}<div class="content">${head('Du vil gerne samle',`Du har valgt at samle ${n} pensionsopsparing${n===1?'':'er'}.`)}<div class="sumbox"><div class="tot"><span>Samlet</span><b>${KR(ps.reduce((s,r)=>s+r.v,0))}</b></div><div class="fbar" aria-hidden="true">${ps.map((r,i)=>`<i${i?' class="l"':''} style="flex:${r.f}"></i>`).join('')}</div>${ps.map((r,i)=>`<div class="frow"><i${i?' class="l"':''}></i><span>${r.n}</span><b>${r.a}</b></div>`).join('')}</div></div>${cta('Gå til dokumenter')}`}, next:'underskriv'},
  underskriv:{render:()=>`${topStep(2)}<div class="content">${head('Gennemse og underskriv','Læs dokumentet igennem. Når du underskriver med MitID, går vi i gang med at samle dine valgte pensionsopsparinger.')}
    <div class="doc"><h3>Dokument til underskrift</h3><i class="blk"></i><div class="lines">${[144,220,224,250,246,127,240].map(w=>`<i style="width:${w}px"></i>`).join('')}</div><i class="blk"></i></div></div>${cta('Underskriv med MitID')}`, next:'mitid'},
