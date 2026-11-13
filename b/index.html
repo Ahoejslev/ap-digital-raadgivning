@@ -624,6 +624,7 @@ p.lead{color:#7E7E7E}
     <h1>AP Pension · Digital rådgivning · Version B (forenklet)</h1>
     <p>Forenklet version uden steps: fra velkomsten går man direkte i gang, med én fortløbende proceslinje gennem 7 skærme. Navne og tal er eksempler.</p>
     <button type="button" id="restart">Start forfra</button>
+    <button type="button" id="pick" hidden>Vælg version A eller B</button>
   </aside>
 </div>
 
@@ -763,7 +764,7 @@ function countUp(el){
 }
 function fillBar(el){ const b=el.querySelector('.bar i[data-to]'); if(!b)return; const to=+b.dataset.to; requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.width=to+'%'})); barW=to; }
 function go(id){ closeDrawer(true); hist.push(cur); render(id,1); }
-function next(){ const d=SCREENS[cur]; d.save&&d.save(); if(d.sheet){ return d.sheet(); } if(d.next==='slut'){ restart(); return; } go(d.next); if(d.after) setTimeout(d.after,650); }
+function next(){ const d=SCREENS[cur]; d.save&&d.save(); if(d.sheet){ return d.sheet(); } if(d.next==='slut'){ if(ONSITE) return toStart(); restart(); return; } go(d.next); if(d.after) setTimeout(d.after,650); }
 function back(){ const d=SCREENS[cur]; d.save&&d.save(); if(d.backTo==='welcome'){ openWelcome(); return; } const p=hist.pop(); if(p) render(p,-1); }
 function rerender(){ const el=app.querySelector('.screen'); const c=el.querySelector('.content'); const sc=c?c.scrollTop:0; rendering=cur; el.innerHTML=SCREENS[cur].render(); const rb=el.querySelector('.bar i[data-to]'); if(rb) rb.style.width=rb.dataset.to+'%'; wire(el); const c2=el.querySelector('.content'); if(c2)c2.scrollTop=sc; }
 function openWelcome(){
@@ -841,13 +842,13 @@ function act(a){
     case 'next': return next();
     case 'back': return back();
     case 'welcome-close': return closeWelcome();
-    case 'tak-go': closeWelcome(); hist.push(cur); return setTimeout(()=>render('tak',1),350);
-    case 'pi-go': closeWelcome(); hist.push(cur); return setTimeout(()=>render('pi-cookies',1),350);
+    case 'tak-go': hist.push(cur); render('tak',0); return closeWelcome();
+    case 'pi-go': hist.push(cur); render('pi-cookies',0); return closeWelcome();
     case 'consent': { st.consent=!st.consent; const t=app.querySelector('.screen .toggle'); if(t){t.setAttribute('aria-checked',st.consent);return;} return rerender(); }
     case 'drawer': return openDrawer(v);
     case 'drawer-close': return closeDrawer();
-    case 'follow': closeDrawer(true); return next();
-    case 'stop': closeDrawer(); return setTimeout(restart,450);
+    case 'follow': { const d=SCREENS[cur]; d.save&&d.save(); if(d.sheet||!d.next||d.next==='slut'){ closeDrawer(true); return next(); } hist.push(cur); render(d.next,0); closeDrawer(); if(d.after) setTimeout(d.after,650); return; }
+    case 'stop': if(ONSITE) return toStart(); closeDrawer(); return setTimeout(restart,450);
     case 'partner': st.partner=v; app.querySelectorAll('.screen .opt').forEach(o=>o.setAttribute('aria-checked',o.textContent.trim()===v)); return;
   }
 }
@@ -857,8 +858,11 @@ function wire(root){
   const tel=root.querySelector('#in-tel'); if(tel) tel.addEventListener('input',()=>{const d=tel.value.replace(/\D/g,'').slice(0,8);tel.value=d.replace(/(\d{2})(?=\d)/g,'$1 ')});
   root.querySelectorAll('input').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();i.blur();}}));
 }
+const ONSITE=/(^|\.)github\.io$/.test(location.hostname);
+function toStart(){ location.href='../'; }
 function restart(){ barW=0; st=S0(); hist.length=0; closeWelcome(true); render('mail',0); setTimeout(openWelcome,500); }
 document.getElementById('restart').addEventListener('click',restart);
+if(ONSITE){const pk=document.getElementById('pick'); pk.hidden=false; pk.addEventListener('click',toStart);}
 new MutationObserver(()=>phone.classList.toggle('dim',!!app.querySelector(':scope > .backdrop:not(.closing)'))).observe(app,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return; if(app.querySelector('.drawer'))closeDrawer(); else if(app.querySelector('.sheet'))closeWelcome();});
 const start=(location.hash||'').slice(1);
