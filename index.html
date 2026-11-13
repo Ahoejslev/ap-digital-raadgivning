@@ -69,13 +69,6 @@ a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 #frame{width:100%;height:100%}
 #phone{position:relative;width:100%;height:100%;background:var(--white);overflow:hidden;display:flex;flex-direction:column}
 .statusbar{display:none}
-@media (min-width:640px){
-  html,body{background:var(--stage)}
-  #stage{padding:24px}
-  #frame{position:relative;width:calc(375px * var(--s,1));height:calc(812px * var(--s,1))}
-  #phone{position:absolute;left:0;top:0;transform:scale(var(--s,1));transform-origin:0 0;width:375px;height:812px;border-radius:44px;box-shadow:0 0 0 10px #1c1c1c,0 0 0 11px #3a3a3a,0 30px 80px rgba(0,0,0,.25)}
-  .statusbar{display:flex;flex:0 0 auto;height:39px;align-items:center;justify-content:space-between;padding:4px 24px 0 28px;font:600 15px/1 var(--f-body)}
-}
 .top{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--line)}
 .logo{width:61px;height:24px;display:block}
 .top .tag{font:600 14px/22px var(--f-head);letter-spacing:.034em;color:var(--body)}
@@ -107,10 +100,21 @@ h1{margin:0;font:600 22px/32px var(--f-head);letter-spacing:.035em;text-wrap:bal
 .foot svg{flex:0 0 auto;width:16px;height:16px;margin-top:0}
 @keyframes up{from{opacity:0;transform:translateY(10px)}}
 @media (prefers-reduced-motion:reduce){.card{animation:none;transition:none}}
+/* Desktop: almindelig side uden telefonramme */
+@media (min-width:640px){
+  #stage,#frame,#phone{display:flex;flex-direction:column;width:100%;height:auto;min-height:100%;overflow:visible}
+  .top{padding:20px max(24px, calc((100% - 960px) / 2))}
+  .content{flex:1 0 auto;overflow:visible;width:100%;max-width:1008px;margin:0 auto;padding:72px 24px 48px;gap:40px}
+  h1{font-size:34px;line-height:44px}
+  .lead{max-width:620px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .card{grid-template-columns:1fr 132px;padding:32px;align-items:center}
+  .card img{width:132px;height:154px}
+  .foot{margin-top:8px}
+}
 </style>
 
 <div id="stage"><div id="frame"><div id="phone">
-  <div class="statusbar" aria-hidden="true"><span>9:41</span><span>●●● ▮</span></div>
   <header class="top"><svg class="logo" width="61" height="24" viewBox="0 0 61 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AP Pension" role="img"><path d="M29.2961 0H17.5661C8.59614 0 3.58593 3.20987 2.29609 10.4402L0.0158743 23.1305C-0.0743203 23.7005 0.225739 24.0006 0.765727 24.0006H3.2558C3.73566 24.0006 4.12592 23.7907 4.33578 23.3403L11.266 9C13.3959 4.61996 13.8457 3.74985 18.6461 3.74985H21.9721C22.0835 3.74985 22.1684 3.85066 22.1483 3.9609L20.7759 11.6103C20.3857 13.7703 19.696 14.4907 17.5059 14.4907H12.4657C11.9557 14.4907 11.6256 14.7306 11.4759 15.2405L11.2059 16.2008C11.0562 16.7709 11.3262 17.101 11.8962 17.101H16.966C19.2462 17.101 19.5763 18.0908 19.2462 19.9813L18.6761 23.1311C18.5859 23.7011 18.886 24.0012 19.426 24.0012H25.0363C25.5763 24.0012 25.9365 23.7312 26.0261 23.1912L30.076 0.870112C30.1662 0.300059 29.8361 0 29.2961 0ZM56.4464 13.3199C57.8866 11.4901 60.1662 7.17017 60.1662 4.52977C60.1662 1.68009 57.886 0 51.7363 0H35.9864C35.4464 0 35.0862 0.269994 34.996 0.809982L30.9461 23.1299C30.8559 23.6999 31.186 24 31.726 24H37.3063C37.8463 24 38.2065 23.73 38.2961 23.19L41.8095 3.89723C41.8249 3.81234 41.8992 3.74985 41.9858 3.74985H48.9762C51.2263 3.74985 51.9762 4.52977 51.9762 5.90981C51.9762 7.49971 50.806 10.65 50.0261 12.1798C49.3658 13.4696 48.4061 14.4901 46.3358 14.4901H43.996C43.4861 14.4901 43.156 14.73 43.0062 15.2399L42.7363 16.2002C42.5865 16.7703 42.8565 17.1004 43.4266 17.1004H47.2666C52.3664 17.1004 53.9563 16.5304 56.447 13.3205" fill="#E07829"/></svg><span class="tag">Brugertest</span></header>
   <main class="content">
     <div class="head">
@@ -150,9 +154,6 @@ document.querySelectorAll('.card').forEach(el=>{
   el.href = LINKS[el.dataset.v];
   if (LINKS.target==='_blank'){ el.target='_blank'; el.rel='noopener'; }
 });
-// Skaler telefonrammen, så den passer i vinduet på desktop.
-function fit(){ const h=innerHeight-48, w=innerWidth-48; const s=Math.min(1, h/812, w/375); document.documentElement.style.setProperty('--s', s.toFixed(3)); }
-addEventListener('resize', fit); fit();
 </script>
 
 </body></html>
