@@ -829,6 +829,30 @@ p.lead{color:#7E7E7E}
 .hs .ic svg{width:28px;height:28px}
 .hs:nth-child(2) .ic svg{width:24px;height:24px}
 .hs > :last-child:not(.s){margin-left:auto;opacity:.55}
+/* v37 */
+.top-step{display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:65px;padding:8px 16px}
+.step .s{display:flex;flex-direction:column;gap:0}
+.step .s b{font:600 14px/22px var(--f-head);letter-spacing:var(--ls-h6);color:var(--ink)}
+.step .s small{font:400 12px/16px var(--f-body);color:#555}
+.steps .step{padding:16px 0}
+.steps .step .ic,.steps .step:nth-of-type(2) .ic{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.steps .step{padding:17px 0 16px}
+/* v38 loader 11 */
+.content.l11b{justify-content:flex-start;padding:169px 25px 0 21px;position:relative}
+.l11b h2.t{margin:0}
+.content.l11b{gap:0}
+.lcard{margin-top:40px;background:#EAEFEF;border-radius:8px;padding:24px 24px 64px;display:flex;flex-direction:column;gap:16px;position:relative;z-index:1}
+.lck{width:24px;height:24px;border-radius:50%;background:#2A5A5E;display:grid;place-items:center}
+.lck svg{width:12px;height:12px}
+.lck svg path{fill:#fff}
+.lmsg{display:grid;max-width:268px}
+.lm{grid-area:1/1;opacity:0;transition:opacity .5s ease}
+.lm.on{opacity:1}
+.lm b{display:block;font:600 16px/24px var(--f-head);color:var(--ink)}
+.lm p{margin:8px 0 0;font:400 14px/20px var(--f-body);color:#555}
+.lpb{margin-top:16px;height:6px;border-radius:9999px;background:#fff;overflow:hidden}
+.lpb i{display:block;height:100%;width:0;background:#2A5A5E;border-radius:9999px;transition:width 9.2s linear}
+.l11b .lpers{position:absolute;left:27px;bottom:0;width:166px;height:196px;object-fit:contain;object-position:left bottom;z-index:2}
 </style>
 
 <div id="stage">
@@ -876,7 +900,10 @@ let st=S0(); const hist=[]; let cur=null;
 const topBrand=()=>`<header class="top"><div class="top-brand">${SVG.logo}</div></header>`;
 const SUC16="<svg class=\"suc\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path d=\"M8 15.33A7.33 7.33 0 1 0 8 .67a7.33 7.33 0 0 0 0 14.66Z\" fill=\"#2A5A5E\"/><path fill-rule=\"evenodd\" d=\"M12.35 5.18a.5.5 0 0 1 0 .71L6.67 11.58 3.98 8.89a.5.5 0 1 1 .71-.7l1.98 1.97 4.98-4.98a.5.5 0 0 1 .7 0Z\" fill=\"#fff\"/></svg>", SUC24="<svg class=\"suc24\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M12 23a11 11 0 1 0 0-22 11 11 0 0 0 0 22Z\" fill=\"#2A5A5E\"/><path fill-rule=\"evenodd\" d=\"M18.53 7.78a.75.75 0 0 1 0 1.06L10 17.37l-4.03-4.03a.75.75 0 1 1 1.06-1.06L10 15.25l7.47-7.47a.75.75 0 0 1 1.06 0Z\" fill=\"#fff\"/></svg>", INFO="<svg viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M12 23a11 11 0 1 0 0-22 11 11 0 0 0 0 22Z\" fill=\"#555\"/><path fill-rule=\"evenodd\" d=\"M10.3 10c0-.39.31-.7.7-.7.52 0 .96.26 1.26.65.29.38.44.86.44 1.34v5.43c0 .2.06.37.15.48.08.1.14.1.15.1a.7.7 0 1 1 0 1.4c-.52 0-.96-.26-1.26-.65-.29-.38-.44-.86-.44-1.34v-5.43c0-.2-.06-.37-.15-.48-.08-.1-.14-.1-.15-.1a.7.7 0 0 1-.7-.7Z\" fill=\"#fff\"/><circle cx=\"11.5\" cy=\"7\" r=\"1\" fill=\"#fff\"/></svg>", CHEV16="<svg viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" d=\"M5.04 2.76a1 1 0 0 1 1.42 0l4.75 4.75a1 1 0 0 1 0 1.41l-4.75 4.75a1 1 0 1 1-1.42-1.41L9.09 8.21 5.04 4.17a1 1 0 0 1 0-1.41Z\" fill=\"#E07829\"/></svg>", TICK12="<svg viewBox=\"0 0 12 8\" fill=\"none\" aria-hidden=\"true\"><path d=\"M.75 3.75 4.25 7.25 11.25.75\" stroke=\"#2A5A5E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", CKI="<svg viewBox=\"0 0 16 16\" fill=\"none\"><path fill-rule=\"evenodd\" d=\"M14.53 3.97a.75.75 0 0 1 0 1.06L6 13.56 1.97 9.53a.75.75 0 1 1 1.06-1.06L6 11.44l7.47-7.47a.75.75 0 0 1 1.06 0z\" fill=\"currentColor\"/></svg>";
 const DELW=[0,18,127,211,323];
-const topStep=(ch,lbl)=>`<header class="top"><div class="top-step"><span class="lbl">${lbl||('Del '+ch)}</span><span class="lbl c">1 af 7</span><button class="hjlp" type="button" data-act="help:${ch}" aria-label="Hjælp">Hjælp ${CHEV16}</button></div><div class="bar"><i style="width:${DELW[ch]}px"></i></div></header>`;
+const LMSG=[['Få velkomstbonus','Du får 1 % i bonus, svarende til 17.130 kr. Pengene sættes ind på din AP Loyalitetsbonus-konto.'],['Betal færre gebyrer','Med alt samlet ét sted slipper du for at betale administrationsgebyrer hos flere selskaber.'],['Tag dine rettigheder med dig','I nogle tilfælde kan du tage værdifulde rettigheder med fra din nuværende ordning.']];
+const KAPT=['Om dig','Dine muligheder','Dine anbefalinger','Afslutning'];
+const STT=[['Om dig','Vi lærer dig at kende'],['Dine muligheder','Vi ser på dine muligheder'],['Dine anbefalinger','Du får vores anbefaling'],['Afslutning','Vi klarer resten og giver dig besked']];
+const topStep=(ch,lbl)=>`<header class="top"><div class="top-step"><span class="lbl">${lbl||(KAPT[ch-1]+' - 1 af 7')}</span><button class="hjlp" type="button" data-act="help:${ch}" aria-label="Hjælp">Hjælp ${CHEV16}</button></div><div class="bar"><i style="width:${DELW[ch]}px"></i></div></header>`;
 const cta=(label)=>`<footer class="cta"><button class="backbtn" data-act="back" aria-label="Tilbage">${I.back}</button><button class="btn primary" data-act="next">${label}</button></footer>`;
 const ovbox=sk=>`<div class="ovb"><div>${[['Danica','1.204.000 kr.'],['Velliv','509.000 kr.'],['Sampension','509.000 kr.']].map((r,i)=>`<div class="ovr${sk&&i?' sk':''}">${TICK12}<span>${r[0]}</span><b>${r[1]}</b><u class="s1" style="width:${i===2?110:70}px"></u><u class="s2"></u></div>`).join('')}</div><p class="src">Oplysningerne er hentet fra PensionsInfo</p></div>`;
 const head=(t,p)=>`<div class="head"><h2 class="t">${t}</h2>${p?`<p class="lead">${p}</p>`:''}</div>`;
@@ -887,7 +914,7 @@ const TICK='<svg viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" d="M1
 const topClose=()=>`<header class="top"><div class="top-brand" style="justify-content:flex-end"></div></header>`;
 const KAPN=(n,i,t)=>(({1:{2:'Det får du hos AP',3:'Book rådgivning'},3:{2:'Det du får'}})[n]||{})[i]||t;
 const kapitel=(n,t,p)=>`${n>1?topStep(n):topClose()}<div class="content${n>2?' bl':''}" style="padding-top:40px">${head(t,p)}
-   <div class="steps anim" style="margin-top:${[0,0,55,6,8][n]}px">${STEPS.map((s,i)=>{const was=i===n-2,nx=i===n-1,done=i<n-2;return `<div class="step ${was?'cur was':(nx?'next':'')}"><span class="ic">${SVG[s.ic]}</span><span class="s">${KAPN(n,i,s.t)}</span>${done?CHK('static'):(was?CHK(''):'')}</div>`}).join('')}</div></div>${cta('Næste')}`;
+   <div class="steps anim" style="margin-top:${[0,0,55,5,7][n]}px">${STEPS.map((s,i)=>{const was=i===n-2,nx=i===n-1,done=i<n-2;return `<div class="step ${was?'cur was':(nx?'next':'')}"><span class="ic">${SVG[s.ic]}</span><span class="s"><b>${STT[i][0]}</b><small>${STT[i][1]}</small></span>${done?CHK('static'):(was?CHK(''):'')}</div>`}).join('')}</div></div>${cta('Næste')}`;
 const kapMount=()=>setTimeout(()=>{if(!app.querySelector('.sheet.done'))playSteps()},900);
 const rec=(n,a,w)=>`<div class="rec"><div class="r1"><i></i>${n}<b>${a}</b></div>${w?`<div class="r2"><span>Kan udbetales:</span><span>${w}</span></div>`:''}</div>`;
 const ICO={
@@ -918,7 +945,7 @@ const SCREENS={
    <div class="calm"><img src="${IMG.ill_person}" alt=""><span>Du behøver ikke at forberede noget. Svar blot spørgsmålene.</span></div>
    </div>${cta('Næste')}`, next:'kap1', backTo:'welcome'},
  kap1:{render:()=>`${topBrand()}<div class="content" style="padding-top:40px">${head('Din pension starter med dig.','Ingen mennesker er ens, og det er pensioner heller ikke. Derfor starter vi med at lære dig lidt bedre at kende.')}
-   <div class="steps">${STEPS.map((s,i)=>`<div class="step ${i===0?'cur':''}"><span class="ic">${SVG[s.ic]}</span><span class="s">${KAPN(1,i,s.t)}</span></div>`).join('')}</div></div>${cta('Næste')}`, next:'mail'},
+   <div class="steps" style="margin-top:35px">${STEPS.map((s,i)=>`<div class="step ${i===0?'cur':''}"><span class="ic">${SVG[s.ic]}</span><span class="s"><b>${STT[i][0]}</b><small>${STT[i][1]}</small></span></div>`).join('')}</div></div>${cta('Næste')}`, next:'mail'},
  mail:{render:()=>`${topStep(1)}<div class="content">${head('Hvor kan vi skrive til dig?','Vi har brug for din mailadresse, så du bliver tilbudt relevant rådgivning om din pension.')}<div class="spacer"></div>
    <div class="box"><div class="field"><label for="in-mail">Mail*</label><input id="in-mail" type="email" inputmode="email" autocomplete="email" value="${st.email}" enterkeyhint="next"></div></div></div>${cta('Næste')}`,
    save:()=>{st.email=document.getElementById('in-mail').value}, next:'mobil'},
@@ -940,8 +967,8 @@ const SCREENS={
  loadA:{render:()=>`${topStep(1)}<div class="content w13">${head('Vi gør dit overblik klar','Tak, vi har modtaget dine oplysninger fra PensionsInfo. Det tager kun et øjeblik.')}${ovbox(true)}</div>${cta('Næste').replace('data-act="next"','data-act="next" disabled')}`,
    mount:()=>{ const s=app.querySelector('.screen:last-child'); const rows=s.querySelectorAll('.ovb .ovr.sk'); rows.forEach((r,i)=>setTimeout(()=>r.classList.remove('sk'),1100+i*800)); setTimeout(()=>{ if(cur!=='loadA') return; const hd=s.querySelector('.head'); hd.style.transition='opacity .3s ease'; hd.style.opacity=0; setTimeout(()=>{ if(cur!=='loadA') return; render('overblik',0); const n=app.querySelector('.screen:last-child'); n.querySelectorAll('.st').forEach(k=>{ if(!k.closest('.head')){k.classList.remove('st');k.style.animationDelay='';} }); },320); },1100+rows.length*800+900); }, next:'overblik'},
  overblik:{render:()=>`${topStep(1)}<div class="content w13">${head('Vi har fundet 3 pensionsopsparinger','Her kan du se, hvor du har pension i dag. Bagefter ser vi på, hvad du kan samle hos AP Pension.')}${ovbox(false)}</div>${cta('Næste')}`, next:'kap2', after:()=>openDone(1)},
- load11:{render:()=>`${topStep(2)}<div class="content l11"><div class="ldr"><video src="${vurl('hand')}" autoplay muted loop playsinline aria-label="Animation af en hånd med et forstørrelsesglas"></video><h2 class="t">Vi finder dine muligheder</h2><p class="lead">Vi kigger dine pensionsopsparinger igennem og gør din anbefaling klar.</p><div class="pg"><div class="pb"><i></i></div><b>Gennemgår dine opsparinger</b></div></div></div>`,
-   mount:()=>{ setTimeout(()=>{ const i=app.querySelector('.screen:last-child .pb i'); if(i) i.style.width='100%'; },300); setTimeout(()=>{ if(cur==='load11') render('anbefaling',1); },3600); }, next:'anbefaling'},
+ load11:{render:()=>`${topStep(2)}<div class="content l11b"><h2 class="t">Hold ud, mens vi finder<br>den bedste anbefaling til dig...</h2><div class="lcard"><span class="lck">${I.ck12}</span><div class="lmsg">${LMSG.map((m,k)=>`<div class="lm${k?'':' on'}"><b>${m[0]}</b><p>${m[1]}</p></div>`).join('')}</div><div class="lpb"><i></i></div></div><img class="lpers" src="${IMG.ill_person}" alt=""></div>`,
+   mount:()=>{ const s=app.querySelector('.screen:last-child'); const T=3000; setTimeout(()=>{ const i=s.querySelector('.lpb i'); if(i) i.style.width='100%'; },200); const ms=s.querySelectorAll('.lm'); [1,2].forEach(k=>setTimeout(()=>{ if(cur!=='load11') return; ms.forEach((m,x)=>m.classList.toggle('on',x===k)); },200+k*T)); setTimeout(()=>{ if(cur==='load11') render('anbefaling',1); },200+3*T+600); }, next:'anbefaling'},
  anbefaling:{render:()=>{ const pk=ANB.filter(r=>st.pick[r.k]); const own=pk.length<ANB.length; const sum=pk.reduce((a,r)=>a+r.v,0);
    return `${topStep(2)}<div class="content anb2">${head(own?`Du har valgt at samle ${pk.length} pension${pk.length>1?'er':''}`:'Vi anbefaler, at du samler 2 af dine pensioner')}
    <div class="ac2"><div class="am"><h3>${KR(sum)} ${own?'samles':'kan samles'} hos AP Pension</h3><div class="fb">${ANB.filter(r=>st.pick[r.k]).length?`<i style="flex:${sum}"></i>`:''}${own?ANB.filter(r=>!st.pick[r.k]).map(r=>`<i class="g" style="flex:${r.v}"></i>`).join(''):''}<i class="r" style="flex:509000"></i></div><div class="lg"><span>Kan samles hos AP Pension</span><span>Kan ikke flyttes</span></div>
