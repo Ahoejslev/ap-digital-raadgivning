@@ -808,7 +808,7 @@ p.lead{color:#7E7E7E}
 .content:has(.steps.anim) .steps{transition:none}
 .kap2fix{margin-top:28px!important}
 .vsum .fb i.g:only-child{border-radius:4px}
-
+.sheet:focus{outline:none}
 /* Version B */
 .top-step.bt{display:flex;justify-content:flex-start;align-items:center;box-sizing:border-box;height:64px;min-height:0;padding:0 24px}
 .bar i.bt{top:-1px;height:2px;transition:width .9s cubic-bezier(.33,1,.68,1) .15s}
@@ -984,7 +984,7 @@ function openWelcome(){
    <div class="txt"><h2>Hej Louise,</h2><p>Du behøver ikke have hele livet på plads. Lad os begynde med at få styr på din pension.</p></div>
    <div class="art"><div class="strip"><div class="loop"><img src="${IMG.cardstrip}" alt=""><img src="${IMG.cardstrip}" alt=""><img src="${IMG.cardstrip}" alt=""></div></div><img class="april" src="${IMG.april_stand}" alt="April fra AP Pension"></div><div class="fade"></div>
    <button class="btn primary go" data-act="welcome-close">Kom i gang</button>`;
-  app.append(bd,sh); wire(sh); sh.querySelector('.go').focus({preventScroll:true});
+  app.append(bd,sh); wire(sh); sh.tabIndex=-1; sh.focus({preventScroll:true});
 }
 function closeWelcome(instant){ const sh=app.querySelector('.sheet'),bd=app.querySelector('.backdrop'); if(!sh)return; if(instant){sh.remove();bd&&bd.remove();return;} const wasDone=sh.classList.contains('done'); sh.classList.add('closing'); bd&&bd.classList.add('closing'); setTimeout(()=>{sh.remove();bd&&bd.remove(); if(wasDone) setTimeout(playSteps,250);},500); }
 function playSteps(){ const st=app.querySelector('.steps.anim'); if(!st||st.classList.contains('play'))return; st.classList.add('play'); setTimeout(()=>st.classList.add('settle'),1400); }
