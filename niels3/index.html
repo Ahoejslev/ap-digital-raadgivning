@@ -996,6 +996,23 @@ video{clip-path:inset(2px);mix-blend-mode:multiply}
 .intro3 .tr b{font:600 22px/32px var(--f-head)}
 .intro3 .tr span{font-weight:600;color:#000}
 .sheet.done.dn2 .april,.sheet.done.dn3 .april{border-radius:0}
+/* v56 Figma-sync 23 nov */
+.am .rtop{display:contents}
+.am.rec{background:#EAEFEF;border:1px dashed #CECECE;border-radius:8px}
+.am.rec .rtop{display:block;padding:24px}
+.am.rec h3{margin-bottom:8px}
+.am.rec .lg{padding:20px 0 0}
+.rrow{display:flex;flex-wrap:wrap;align-items:flex-start;column-gap:10px;padding:24px;border-top:1px dashed #CECECE}
+.rrow svg.suc{width:16px;height:16px;flex:0 0 16px;margin-top:2px}
+.rnm{flex:1;display:flex;flex-direction:column;gap:8px}
+.rnm span{font:400 14px/20px var(--f-body);color:var(--ink)}
+.rnm b{font:600 14px/22px var(--f-head);letter-spacing:var(--ls-h6);color:var(--ink)}
+.rrow .rdet{flex:0 0 auto;margin:0;padding:4px 0}
+.rrow .osub{display:none;flex:0 0 100%;flex-direction:column;gap:4px;padding-left:26px;margin-top:8px}
+.rrow.open .osub{display:flex}
+.ovr.det,.ar.det{row-gap:0}
+.sheet.done.d1 .sub1{font:400 18px/28px var(--f-body)!important}
+.cbx2 svg{color:#E07829}
 
 /* Niels-forslag */
 .sheet .txt .wlink{align-self:center;display:inline-flex;align-items:center;gap:4px;background:none;border:0;padding:0;margin-top:0;font:600 12px/16px var(--f-head);letter-spacing:var(--ls-h6);color:var(--ink);cursor:pointer}
@@ -1065,7 +1082,7 @@ const stepLbl=ch=>{const p=STEPN[rendering];return KAPT[ch-1]+(p?` - ${p[0]} af 
 const CH3=[0,1,2,2,3];
 const topStep=(ch0,lbl)=>{const ch=lbl==='Færdig'?4:CH3[ch0];return `<header class="top"><div class="top-step"><span class="lbl">${lbl||stepLbl(ch)}</span><button class="hjlp" type="button" data-act="help:${ch}" aria-label="Hjælp">Hjælp ${CHEV16}</button></div><div class="bar"><i style="width:${DELW[ch]}px"></i></div></header>`;};
 const cta=(label)=>`<footer class="cta"><button class="backbtn" data-act="back" aria-label="Tilbage">${I.back}</button><button class="btn primary" data-act="next">${label}</button></footer>`;
-const OVR=[['Danica','1.204.000 kr.',[['Kan udbetales:','5 år før pensionsalder'],['Forsikring:','Dækning ved død 2.500.000 kr.'],['+3','']]],['Velliv','509.000 kr.',[['Kan udbetales:','5 år før pensionsalder']]],['ATP','452.000 kr.',[]]];
+const OVR=[['Danica','1.204.000 kr.',[['Kan udbetales:','5 år før pensionsalder'],['Forsikring:','Dækning ved død 2.500.000 kr.']]],['Velliv','509.000 kr.',[['Kan udbetales:','5 år før pensionsalder']]],['ATP','452.000 kr.',[]]];
 const ovbox=sk=>`<div class="ovb"><div>${OVR.map((r,i)=>`<div class="ovr${sk&&i?' sk':''}${!sk&&r[2].length?' det':''}"><i class="osp"></i>${SUC16}<span>${r[0]}</span><b>${r[1]}</b><u class="s1" style="width:${i===2?110:70}px"></u><u class="s2"></u>${!sk&&r[2].length?`<div class="osub">${r[2].map(d=>`<div><span>${d[0]}</span><span>${d[1]}</span></div>`).join('')}</div>`:''}</div>`).join('')}</div><p class="src">Oplysningerne er hentet fra PensionsInfo</p></div>`;
 const head=(t,p)=>`<div class="head"><h2 class="t">${t}</h2>${p?`<p class="lead">${p}</p>`:''}</div>`;
 
@@ -1127,9 +1144,9 @@ const SCREENS={
    mount:()=>{ const s=app.querySelector('.screen:last-child'); setTimeout(()=>{ const i=s.querySelector('.lpb2 i'); if(i) i.style.width='100%'; },300); setTimeout(()=>{ if(cur==='load11') render('anbefaling',1); },6000); }, next:'anbefaling'},
  anbefaling:{render:()=>{ const pk=ANB.filter(r=>st.pick[r.k]); const own=pk.length<ANB.length; const sum=pk.reduce((a,r)=>a+r.v,0);
    return `${topStep(3)}<div class="content anb2">${head(own?`Du har valgt at samle ${pk.length} pension${pk.length>1?'er':''}`:'Louise, vi anbefaler, at du<br>samler 2 af dine pensioner')}
-   <div class="ac2"><div class="am"><h3>${KR(sum)} ${own?'samles':'kan samles'} hos AP Pension</h3><div class="fb">${ANB.filter(r=>st.pick[r.k]).length?`<i style="flex:${sum}"></i>`:''}${own?ANB.filter(r=>!st.pick[r.k]).map(r=>`<i class="g" style="flex:${r.v}"></i>`).join(''):''}<i class="r" style="flex:452000"></i></div><div class="lg"><span>Kan samles hos AP Pension</span><span>Kan ikke flyttes</span></div>
-   ${ANB.map(r=>`<div class="ar${st.pick[r.k]?'':' fra'}${st.pick[r.k]&&r.sub?' det':''}">${SUC16}<span>${r.n}</span><b>${r.a}</b>${st.pick[r.k]&&r.sub?`<div class="osub">${r.sub.map(d=>`<div><span>${d[0]}</span><span>${d[1]}</span></div>`).join('')}<div><span>+3</span><span></span></div></div>`:''}</div>`).join('')}</div>
-   ${`<div class="fcards2"><h3>Du kan med fordel samle flere af dine opsparinger hos AP Pension</h3><div class="hscroll bc3" id="cards">${SFD4.map(x=>`<div class="bc"><b>${x[0]}</b><p>${x[1]}</p></div>`).join('')}</div><div class="dots bd3" id="dots">${SFD4.map((_,k)=>`<i class="${k?'':'on'}"></i>`).join('')}</div></div>`}
+   <div class="ac2"><div class="am${own?'':' rec'}"><div class="rtop"><h3>${KR(sum)} ${own?'samles':'kan samles'} hos AP Pension</h3><div class="fb">${ANB.filter(r=>st.pick[r.k]).length?`<i style="flex:${sum}"></i>`:''}${own?ANB.filter(r=>!st.pick[r.k]).map(r=>`<i class="g" style="flex:${r.v}"></i>`).join(''):''}<i class="r" style="flex:452000"></i></div><div class="lg"><span>Kan samles hos AP Pension</span><span>Kan ikke flyttes</span></div></div>
+   ${own?ANB.map(r=>`<div class="ar${st.pick[r.k]?'':' fra'}${st.pick[r.k]&&r.sub?' det':''}">${SUC16}<span>${r.n}</span><b>${r.a}</b>${st.pick[r.k]&&r.sub?`<div class="osub">${r.sub.map(d=>`<div><span>${d[0]}</span><span>${d[1]}</span></div>`).join('')}<div><span>+3</span><span></span></div></div>`:''}</div>`).join(''):ANB.map(r=>`<div class="rrow${st.rd&&st.rd[r.k]?' open':''}">${SUC16}<div class="rnm"><span>${r.n}</span><b>${r.a}</b></div><button class="glink rdet" data-act="rdet:${r.k}">Detaljer ${I.chev}</button><div class="osub">${((OVR.find(o=>o[0]===r.n)||[0,0,[]])[2]).map(d=>`<div><span>${d[0]}</span><span>${d[1]}</span></div>`).join('')}</div></div>`).join('')}</div>
+   ${`<div class="fcards2"><h3>${own?'Du kan med fordel samle flere af dine opsparinger hos AP Pension':'8 ud af 10 vælger at samle deres opsparinger hos AP Pension'}</h3><div class="hscroll bc3" id="cards">${SFD4.map(x=>`<div class="bc"><b>${x[0]}</b><p>${x[1]}</p></div>`).join('')}</div><div class="dots bd3" id="dots">${SFD4.map((_,k)=>`<i class="${k?'':'on'}"></i>`).join('')}</div></div>`}
    <div class="nm"><h3>Kan ikke flyttes</h3><div class="sp"><div class="ar off"><i></i><span>ATP</span><b>452.000 kr.</b></div><button class="glink" data-act="drawer:hvorfor">Hvorfor kan den ikke flyttes? ${I.chev}</button></div></div>
    <div class="vb"><button class="btn secondary wide" data-act="${own?'vs-open':'drawer:selv'}">${own?'Ret dit valg':'Vælg selv'}</button></div></div></div>${cta(own?`Saml ${pk.length} pension${pk.length>1?'er':''}`:'Saml og få 17.130 kr. i bonus')}`}, next:'underskriv'},
  klar:{render:()=>`${topStep(2)}<div class="content klar">${head('Du er klar til at samle','Du har valgt at samle 2 pensionsopsparinger. Næste skridt er at underskrive med MitID.')}<div class="kb"><div class="sumbox k2"><div class="tot"><span>Samlet</span><b>1.713.000 kr.</b><span>Du får 17.130 kr. i velkomstbonus</span></div><div class="rows">${ANB.map(r=>`<div class="frow"><i></i><span>${r.n}</span><b>${r.a}</b></div>`).join('')}</div><p class="gb">Når dine opsparinger er samlet, betaler du ikke længere administrationsgebyr hos Danica og Velliv.</p></div></div></div>${cta('Gå til underskrift')}`, next:'underskriv'},
@@ -1311,6 +1328,7 @@ function act(a){
     case 'vs-open': return openVS();
     case 'sfd': return openSFD();
     case 'help': return openHelp(v);
+    case 'rdet': { st.rd=st.rd||{}; st.rd[v]=!st.rd[v]; const b=app.querySelector('.screen [data-act="rdet:'+v+'"]'); if(b) b.closest('.rrow').classList.toggle('open',st.rd[v]); return; }
     case 'vpick': st.draft[v]=!st.draft[v]; return vsRefresh();
     case 'vs-ok': st.pick={...st.draft}; closeDrawer(); return rerender();
     case 'selv-ok': st.selv=false; return rerender();
